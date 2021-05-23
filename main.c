@@ -137,6 +137,11 @@ int main(void)
 	
 	RCONbits.SWDTEN=0;            /* Disable Watch Dog Timer*/
     
+    // attempt to set FRC to 8MHz (factory default is 7.37MHz)
+    // OSCTUN = 0x0013;  // got f_cy = 3.9984 MHz => f_frc = 7.9968 MHz
+    OSCTUN = 0x0014; // got f_cy = 4.0082 MHz => f_frc = 8.0164 MHz
+    // NOTE: Your FRC may require different values of OSCTUN!!!
+            
     // PLL / primary Osc currently unused...
 #if 0    
 // Configure Oscillator to operate the device at 40Mhz
@@ -167,7 +172,8 @@ int main(void)
 	
 	while(1)
 	{
-	
+        asm("NOP");
+        asm("NOP");
 	}
 }
 /******************************************************************************/

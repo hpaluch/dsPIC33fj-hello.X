@@ -10,6 +10,15 @@ Now it does following (I use it to measure FRC oscillator frequency):
 
 In my case default `f_cy = 3.6757 kHz`, so `f_osc = 7.3514 MHz`
 
+Tuning FRC to 8 MHz. I used debugger session and paused
+program (anywhere) then directly modified OSCTUN register.
+
+In my case I found following:
+- OSCTUN = 0x0014 => `f_cy = 4.0082 MHz`
+- OSCTUN = 0x0013 => `f_cy = 3.9984 MHz`
+
+I used OSCTUN = 0x0014 in source...
+
 
 Why not use MCC tool to generate sources?
 
