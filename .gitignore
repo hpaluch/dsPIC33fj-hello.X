@@ -7,6 +7,7 @@
 private/
 dist/
 build/
+disassembly/
 Package-*
 Makefile-*
 
