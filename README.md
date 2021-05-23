@@ -5,24 +5,20 @@ that is provided with [Microstick II][PIC Microstick II] board.
 
 Now it does following (I use it to measure FRC oscillator frequency):
 
-* - Blinking LED on RA0 PIN 2 at frequency `F_cy / 1,000,000`
+* - Blinking LED on RA0 PIN 2 at frequency `F_cy / 10,000,000`
+    (TMR1 interrupt freq is f_cy / 1,000,000)
 * - `f_cy / 1000` output on RA1 PIN 3
 
-In my case default `f_cy = 3.6757 kHz`, so `f_osc = 7.3514 MHz`
+In my case default `f_cy = 40 MHz kHz`, so `f_pll = 80 MHz`
 
-Tuning FRC to 8 MHz. I used debugger session and paused
-program (anywhere) then directly modified OSCTUN register.
+Now we use PLL, so we may say:
+- `f_frc = 7.37 MHz`
+- `f_pll = 80 MHz`
+- `f_cy  = 40 MHz` (40 MIPS) instruction clock
 
-In my case I found following:
-- OSCTUN = 0x0014 => `f_cy = 4.0082 MHz`
-- OSCTUN = 0x0013 => `f_cy = 3.9984 MHz`
+## Why not use MCC tool to generate sources?
 
-I used OSCTUN = 0x0014 in source...
-
-
-Why not use MCC tool to generate sources?
-
-The whe dsPICFJ series is NOT supported
+The whole dsPICFJ series is NOT supported
 by MCC configuration tool (at least not on 2021-05-20).
 So you must create most of sources
 manually... and that's where adventure starts...
@@ -45,6 +41,11 @@ Software:
 - Device Family Pack (DFP):  `dsPIC33F-GP-MC_DFP 1.0.6` (not sure)
 
 You can debug and/or run this project as usual (no special instructions needed).
+
+# Resources
+
+* How to configure FRC with PLL to get f 80 MHz ( f_cy = 40 MHz, 40 MIPS):
+  - http://ww1.microchip.com/downloads/en/DeviceDoc/DS-70596A.pdf
 
 [PIC Microstick II]: https://www.microchip.com/DevelopmentTools/ProductDetails/dm330013-2
 [dsPIC33FJ128MC802]: https://www.microchip.com/wwwproducts/en/dsPIC33FJ128MC802
